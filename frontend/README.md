@@ -17,10 +17,10 @@ If you are developing a production application, we recommend using TypeScript wi
 
 ## Environment Variables
 
-Set `VITE_API_BASE_URL` to the deployed backend URL before building or deploying the frontend.
+Set `VITE_API_URL` to the deployed backend URL before building or deploying the frontend.
 
 Example:
 
 ```bash
-VITE_API_BASE_URL=https://your-backend-domain.com/api
+VITE_API_URL=https://your-backend-domain.com/api
 ```
