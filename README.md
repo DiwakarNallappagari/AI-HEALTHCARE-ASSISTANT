@@ -105,6 +105,16 @@ VITE_API_URL=https://your-backend-domain.com/api
 
 The frontend reads this value from `frontend/src/services/api.js` at build time.
 
+### Railway Backend CORS
+
+If the frontend is deployed on Vercel, set `FRONTEND_URL` in Railway to your Vercel app origin, for example:
+
+```bash
+FRONTEND_URL=https://ai-healthcare-assistant-omega.vercel.app
+```
+
+The backend also accepts standard `*.vercel.app` origins in production to avoid blocking Vercel preview or redeployed frontend URLs.
+
 ---
 
 ## 📂 Project Structure

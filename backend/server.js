@@ -22,12 +22,44 @@ const historyRoutes = require('./routes/history');
 // Initialize Express app
 const app = express();
 
+const allowedOrigins = new Set(
+  String(process.env.FRONTEND_URL || '')
+    .split(',')
+    .map((value) => value.trim())
+    .filter(Boolean)
+);
+
+const isAllowedOrigin = (origin) => {
+  if (!origin) {
+    return true;
+  }
+
+  if (NODE_ENV !== 'production') {
+    return true;
+  }
+
+  if (allowedOrigins.has(origin)) {
+    return true;
+  }
+
+  try {
+    const parsedOrigin = new URL(origin);
+    return parsedOrigin.hostname.endsWith('.vercel.app') || parsedOrigin.hostname === 'vercel.app';
+  } catch (error) {
+    return false;
+  }
+};
+
 // ─── Security Middleware ─────────────────────────────────────────────
 app.use(helmet());
 app.use(cors({
-  origin: NODE_ENV === 'production'
-    ? process.env.FRONTEND_URL
-    : true,
+  origin: (origin, callback) => {
+    if (isAllowedOrigin(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error(`CORS blocked for origin: ${origin}`));
+  },
   credentials: true,
 }));
 
