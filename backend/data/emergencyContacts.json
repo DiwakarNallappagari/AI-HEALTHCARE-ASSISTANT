@@ -1,0 +1,102 @@
+{
+  "contacts": [
+    {
+      "name": "National Emergency Number",
+      "number": "112",
+      "description": "Unified emergency response — police, fire, ambulance",
+      "category": "emergency",
+      "available": "24/7"
+    },
+    {
+      "name": "Ambulance",
+      "number": "108",
+      "description": "Free ambulance service available across India",
+      "category": "ambulance",
+      "available": "24/7"
+    },
+    {
+      "name": "Police",
+      "number": "100",
+      "description": "Police emergency helpline",
+      "category": "police",
+      "available": "24/7"
+    },
+    {
+      "name": "Fire Brigade",
+      "number": "101",
+      "description": "Fire emergency services",
+      "category": "fire",
+      "available": "24/7"
+    },
+    {
+      "name": "Women Helpline",
+      "number": "1091",
+      "description": "Women in distress national helpline",
+      "category": "helpline",
+      "available": "24/7"
+    },
+    {
+      "name": "Child Helpline",
+      "number": "1098",
+      "description": "CHILDLINE for children in need of care and protection",
+      "category": "helpline",
+      "available": "24/7"
+    },
+    {
+      "name": "Mental Health Helpline (NIMHANS)",
+      "number": "080-46110007",
+      "description": "Mental health and suicide prevention helpline",
+      "category": "mental_health",
+      "available": "24/7"
+    },
+    {
+      "name": "iCALL Psychosocial Helpline",
+      "number": "9152987821",
+      "description": "Professional counselling and emotional support",
+      "category": "mental_health",
+      "available": "Mon-Sat, 8 AM - 10 PM"
+    },
+    {
+      "name": "Vandrevala Foundation Helpline",
+      "number": "1860-2662-345",
+      "description": "24/7 mental health support and crisis intervention",
+      "category": "mental_health",
+      "available": "24/7"
+    },
+    {
+      "name": "Poison Information Centre (AIIMS)",
+      "number": "011-2658-9391",
+      "description": "National Poison Information Centre for poisoning emergencies",
+      "category": "poison",
+      "available": "24/7"
+    },
+    {
+      "name": "Blood Bank IMA",
+      "number": "1910",
+      "description": "Blood bank information helpline",
+      "category": "blood_bank",
+      "available": "24/7"
+    },
+    {
+      "name": "AIDS Helpline",
+      "number": "1097",
+      "description": "HIV/AIDS counselling and information",
+      "category": "helpline",
+      "available": "24/7"
+    },
+    {
+      "name": "Senior Citizen Helpline",
+      "number": "14567",
+      "description": "Helpline for senior citizens",
+      "category": "helpline",
+      "available": "24/7"
+    },
+    {
+      "name": "Disaster Management (NDMA)",
+      "number": "011-1078",
+      "description": "National Disaster Management Authority helpline",
+      "category": "disaster",
+      "available": "24/7"
+    }
+  ]
+}

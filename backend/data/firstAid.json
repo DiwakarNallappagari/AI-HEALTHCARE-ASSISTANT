@@ -1,0 +1,196 @@
+{
+  "conditions": {
+    "heart_attack": {
+      "title": "Heart Attack (Myocardial Infarction)",
+      "severity": "emergency",
+      "symptoms": ["Chest pain or pressure", "Pain radiating to arm/jaw/back", "Shortness of breath", "Cold sweat", "Nausea"],
+      "steps": [
+        "Call 108 (ambulance) or 112 immediately",
+        "Have the person sit down and rest in a comfortable position (usually semi-upright)",
+        "If the person is not allergic, give them an aspirin (325mg) to chew slowly",
+        "Loosen any tight clothing",
+        "If the person becomes unconscious and stops breathing, begin CPR",
+        "If an AED is available, use it following the device instructions",
+        "Stay with the person until emergency services arrive",
+        "Do NOT leave the person alone, Do NOT give them anything other than aspirin"
+      ],
+      "doNot": ["Do not let the person walk or exert themselves", "Do not ignore symptoms even if they seem mild", "Do not delay calling emergency services"]
+    },
+    "stroke": {
+      "title": "Stroke",
+      "severity": "emergency",
+      "symptoms": ["Sudden face drooping", "Arm weakness", "Speech difficulty", "Sudden severe headache", "Vision problems"],
+      "steps": [
+        "Use FAST method: Face drooping, Arm weakness, Speech difficulty, Time to call 112",
+        "Call 108/112 immediately — every minute matters",
+        "Note the time when symptoms first appeared",
+        "Help the person lie down with head and shoulders slightly elevated",
+        "Do NOT give them food, water, or medication",
+        "If the person is unconscious, place them in recovery position",
+        "If vomiting, turn head to the side to prevent choking",
+        "Be prepared to perform CPR if they stop breathing"
+      ],
+      "doNot": ["Do not give aspirin (could be hemorrhagic stroke)", "Do not give any food or drink", "Do not let them go to sleep"]
+    },
+    "choking": {
+      "title": "Choking",
+      "severity": "emergency",
+      "symptoms": ["Inability to speak or cough", "Clutching throat", "Turning blue", "Wheezing"],
+      "steps": [
+        "Ask 'Are you choking?' — if they cannot speak, act immediately",
+        "Stand behind the person, wrap your arms around their waist",
+        "Make a fist with one hand, place it above the navel",
+        "Grasp your fist with other hand and thrust inward and upward (Heimlich maneuver)",
+        "Repeat until object is expelled or person becomes unconscious",
+        "If unconscious, lower them to ground and begin CPR",
+        "Look in mouth before giving breaths — remove visible object",
+        "Call 112 if object is not expelled quickly"
+      ],
+      "doNot": ["Do not slap the back if the person can still cough", "Do not try to reach into throat blindly", "Do not give water"]
+    },
+    "severe_bleeding": {
+      "title": "Severe Bleeding",
+      "severity": "emergency",
+      "symptoms": ["Heavy blood loss", "Blood soaking through bandages", "Pale skin", "Rapid pulse", "Dizziness"],
+      "steps": [
+        "Call 108/112 for severe bleeding",
+        "Apply firm, direct pressure to the wound with a clean cloth",
+        "If possible, elevate the injured area above the heart",
+        "Do NOT remove the cloth if blood soaks through — add more layers on top",
+        "Apply pressure continuously for at least 15 minutes",
+        "If bleeding is from a limb and won't stop, apply a tourniquet above the wound",
+        "Keep the person warm and lying down (shock prevention)",
+        "Monitor breathing and consciousness until help arrives"
+      ],
+      "doNot": ["Do not remove embedded objects", "Do not apply a tourniquet around neck or torso", "Do not use a tourniquet unless bleeding is life-threatening"]
+    },
+    "burns": {
+      "title": "Burns",
+      "severity": "high",
+      "symptoms": ["Red skin", "Blistering", "Swelling", "White/charred skin (severe)", "Pain"],
+      "steps": [
+        "Remove the person from the source of burn",
+        "For minor burns: Cool under running cool (not cold) water for 10-20 minutes",
+        "Remove rings, watches, or tight items from the burned area before swelling",
+        "Cover the burn loosely with a sterile, non-stick bandage",
+        "Give over-the-counter pain relief if needed",
+        "For severe burns (large area, face, hands, genitals): Call 108/112",
+        "Cover with clean sheet while waiting for help",
+        "Monitor for signs of shock"
+      ],
+      "doNot": ["Do not apply ice directly", "Do not use butter, toothpaste, or cream on burns", "Do not break blisters", "Do not remove clothing stuck to the burn"]
+    },
+    "fracture": {
+      "title": "Bone Fracture",
+      "severity": "high",
+      "symptoms": ["Severe pain", "Swelling", "Bruising", "Deformity", "Inability to move the area"],
+      "steps": [
+        "Keep the person still — do not move the injured area",
+        "Call for medical help or go to ER",
+        "Immobilize the injury in the position found — use splint if available",
+        "Apply ice wrapped in cloth (not directly) to reduce swelling",
+        "For open fractures (bone visible): Cover wound with sterile dressing, call 108",
+        "Treat for shock if needed: lay flat, elevate legs, keep warm",
+        "Do NOT try to realign the bone",
+        "Monitor circulation below the injury (pulse, sensation, skin color)"
+      ],
+      "doNot": ["Do not try to straighten the bone", "Do not move the person if spine injury is suspected", "Do not apply heat"]
+    },
+    "seizure": {
+      "title": "Seizure / Epileptic Episode",
+      "severity": "high",
+      "symptoms": ["Uncontrolled shaking", "Loss of consciousness", "Staring spells", "Confusion after episode"],
+      "steps": [
+        "Stay calm and time the seizure",
+        "Clear the area of hard or sharp objects",
+        "Place something soft under their head",
+        "Turn them onto their side (recovery position) to prevent choking",
+        "Do NOT restrain the person or put anything in their mouth",
+        "Stay with them until they are fully conscious",
+        "Call 108/112 if: seizure lasts >5 minutes, person doesn't wake up, it's their first seizure, or they are pregnant",
+        "After seizure, speak calmly and help them orient"
+      ],
+      "doNot": ["Do not hold them down", "Do not put anything in their mouth", "Do not give food/water until fully alert"]
+    },
+    "allergic_reaction": {
+      "title": "Severe Allergic Reaction (Anaphylaxis)",
+      "severity": "emergency",
+      "symptoms": ["Difficulty breathing", "Swelling of face/throat", "Hives", "Rapid pulse", "Dizziness", "Nausea"],
+      "steps": [
+        "Call 108/112 immediately — anaphylaxis is life-threatening",
+        "If the person has an EpiPen, help them use it (inject into outer thigh)",
+        "Help them lie down with legs elevated (unless breathing is difficult)",
+        "If breathing is difficult, let them sit up",
+        "Loosen tight clothing",
+        "If they stop breathing, begin CPR",
+        "A second dose of epinephrine can be given after 5-15 minutes if no improvement",
+        "Even if symptoms improve, they must go to ER (biphasic reactions can occur)"
+      ],
+      "doNot": ["Do not give oral medication if they're having trouble swallowing", "Do not leave them alone", "Do not assume symptoms will resolve on their own"]
+    },
+    "heatstroke": {
+      "title": "Heatstroke",
+      "severity": "emergency",
+      "symptoms": ["Body temp above 104°F/40°C", "Hot dry skin", "Confusion", "Rapid pulse", "Loss of consciousness"],
+      "steps": [
+        "Call 108/112 immediately",
+        "Move the person to a cool, shaded area",
+        "Remove excess clothing",
+        "Cool the body rapidly: apply cold water/ice packs to neck, armpits, groin",
+        "Fan the person while misting with cool water",
+        "If conscious, give small sips of cool water",
+        "Do NOT give aspirin or acetaminophen for heatstroke",
+        "Monitor body temperature and continue cooling until it drops to 101°F/38.3°C"
+      ],
+      "doNot": ["Do not give large amounts of water at once", "Do not use rubbing alcohol to cool", "Do not give fever-reducing medications"]
+    },
+    "poisoning": {
+      "title": "Poisoning",
+      "severity": "emergency",
+      "symptoms": ["Nausea/vomiting", "Drowsiness", "Burns around mouth", "Difficulty breathing", "Confusion"],
+      "steps": [
+        "Call Poison Information Centre: 011-2658-9391 or dial 112",
+        "Try to identify what was ingested, how much, and when",
+        "Do NOT induce vomiting unless instructed by poison control",
+        "If the poison is on the skin, remove contaminated clothing and rinse with water for 20 minutes",
+        "If in the eyes, rinse with clean water for 15-20 minutes",
+        "If inhaled, move to fresh air immediately",
+        "Save the container/substance for identification",
+        "If unconscious, place in recovery position and monitor breathing"
+      ],
+      "doNot": ["Do not induce vomiting (especially for corrosive/petroleum products)", "Do not give activated charcoal without medical advice", "Do not give food or drink"]
+    },
+    "diabetic_emergency": {
+      "title": "Diabetic Emergency (Hypo/Hyperglycemia)",
+      "severity": "high",
+      "symptoms": ["Confusion", "Shakiness", "Sweating", "Rapid heartbeat", "Fruity breath odor", "Excessive thirst"],
+      "steps": [
+        "If conscious and able to swallow: give sugar — juice, candy, glucose tablets",
+        "If symptoms suggest LOW sugar (shaking, sweating, confusion): give sugar immediately",
+        "If symptoms suggest HIGH sugar (fruity breath, excessive thirst, frequent urination): do NOT give sugar",
+        "If unsure whether high or low, give sugar — low sugar is more immediately dangerous",
+        "Check blood glucose if meter is available",
+        "If person is unconscious, call 108/112 immediately",
+        "Place unconscious person in recovery position",
+        "Do NOT give insulin unless you are trained and it's prescribed"
+      ],
+      "doNot": ["Do not give food/drink to unconscious person", "Do not administer insulin without proper knowledge", "Do not ignore symptoms"]
+    },
+    "drowning": {
+      "title": "Drowning / Near-Drowning",
+      "severity": "emergency",
+      "symptoms": ["Difficulty breathing", "Coughing", "Blue skin", "Unconsciousness", "Vomiting"],
+      "steps": [
+        "Call 108/112 immediately",
+        "Remove person from water (ensure your own safety first)",
+        "Check for breathing — if not breathing, begin CPR immediately",
+        "If no pulse, continue with chest compressions and rescue breaths",
+        "If person is breathing, place in recovery position",
+        "Remove wet clothing and keep them warm",
+        "Even if the person seems fine, they MUST go to hospital (secondary drowning)",
+        "Monitor continuously until help arrives"
+      ],
+      "doNot": ["Do not attempt a water rescue unless trained", "Do not assume they are fine just because they are conscious", "Do not give up CPR"]
+    }
+  }
+}

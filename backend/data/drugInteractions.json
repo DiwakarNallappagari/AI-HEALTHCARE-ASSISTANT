@@ -1,0 +1,319 @@
+{
+  "drugs": [
+    {
+      "name": "Aspirin",
+      "genericName": "Acetylsalicylic acid",
+      "category": "NSAID / Antiplatelet",
+      "commonUses": ["Pain relief", "Fever reduction", "Anti-inflammatory", "Heart attack prevention"],
+      "sideEffects": ["Stomach irritation", "Bleeding", "Nausea", "Tinnitus"],
+      "interactions": [
+        { "drug": "Warfarin", "severity": "major", "description": "Increases bleeding risk significantly. Both drugs affect blood clotting through different mechanisms." },
+        { "drug": "Ibuprofen", "severity": "moderate", "description": "May reduce the cardioprotective effect of aspirin and increase GI bleeding risk." },
+        { "drug": "Methotrexate", "severity": "major", "description": "Aspirin can increase methotrexate blood levels, raising toxicity risk." },
+        { "drug": "Lisinopril", "severity": "moderate", "description": "NSAIDs may reduce the antihypertensive effect of ACE inhibitors." },
+        { "drug": "Clopidogrel", "severity": "moderate", "description": "Combined use increases bleeding risk but may be therapeutically intended." },
+        { "drug": "Heparin", "severity": "major", "description": "Significantly increases the risk of bleeding when combined." }
+      ]
+    },
+    {
+      "name": "Warfarin",
+      "genericName": "Warfarin sodium",
+      "category": "Anticoagulant",
+      "commonUses": ["Blood clot prevention", "DVT treatment", "Pulmonary embolism", "Atrial fibrillation"],
+      "sideEffects": ["Bleeding", "Bruising", "Purple toes syndrome", "Hair loss"],
+      "interactions": [
+        { "drug": "Aspirin", "severity": "major", "description": "Increases bleeding risk significantly." },
+        { "drug": "Ibuprofen", "severity": "major", "description": "Significantly increases risk of gastrointestinal bleeding." },
+        { "drug": "Amoxicillin", "severity": "moderate", "description": "Antibiotics can alter gut flora, affecting vitamin K production and warfarin effectiveness." },
+        { "drug": "Metronidazole", "severity": "major", "description": "Inhibits warfarin metabolism, greatly increasing bleeding risk." },
+        { "drug": "Fluconazole", "severity": "major", "description": "Strongly inhibits warfarin metabolism via CYP2C9." },
+        { "drug": "Omeprazole", "severity": "moderate", "description": "May increase warfarin levels by inhibiting CYP2C19." }
+      ]
+    },
+    {
+      "name": "Ibuprofen",
+      "genericName": "Ibuprofen",
+      "category": "NSAID",
+      "commonUses": ["Pain relief", "Fever reduction", "Anti-inflammatory", "Menstrual cramps"],
+      "sideEffects": ["Stomach upset", "Dizziness", "Kidney issues", "Increased blood pressure"],
+      "interactions": [
+        { "drug": "Aspirin", "severity": "moderate", "description": "May reduce the cardioprotective effect of low-dose aspirin." },
+        { "drug": "Warfarin", "severity": "major", "description": "Significantly increases risk of gastrointestinal bleeding." },
+        { "drug": "Lisinopril", "severity": "moderate", "description": "May reduce the blood pressure-lowering effect and affect kidney function." },
+        { "drug": "Methotrexate", "severity": "major", "description": "Can increase methotrexate levels, raising risk of toxicity." },
+        { "drug": "Lithium", "severity": "major", "description": "NSAIDs can increase lithium blood levels to toxic range." },
+        { "drug": "Furosemide", "severity": "moderate", "description": "NSAIDs may reduce the diuretic effect of furosemide." }
+      ]
+    },
+    {
+      "name": "Metformin",
+      "genericName": "Metformin hydrochloride",
+      "category": "Antidiabetic",
+      "commonUses": ["Type 2 diabetes management", "PCOS", "Pre-diabetes"],
+      "sideEffects": ["Nausea", "Diarrhea", "Stomach pain", "Lactic acidosis (rare)"],
+      "interactions": [
+        { "drug": "Furosemide", "severity": "moderate", "description": "Furosemide can increase metformin blood levels." },
+        { "drug": "Alcohol", "severity": "major", "description": "Increases the risk of lactic acidosis, a potentially fatal condition." },
+        { "drug": "Contrast Dye", "severity": "major", "description": "Must stop metformin before procedures with iodinated contrast." },
+        { "drug": "Prednisone", "severity": "moderate", "description": "Corticosteroids can increase blood sugar, counteracting metformin." }
+      ]
+    },
+    {
+      "name": "Lisinopril",
+      "genericName": "Lisinopril",
+      "category": "ACE Inhibitor",
+      "commonUses": ["Hypertension", "Heart failure", "Post-heart attack", "Diabetic nephropathy"],
+      "sideEffects": ["Dry cough", "Dizziness", "Hyperkalemia", "Angioedema"],
+      "interactions": [
+        { "drug": "Aspirin", "severity": "moderate", "description": "May reduce antihypertensive effect at high aspirin doses." },
+        { "drug": "Ibuprofen", "severity": "moderate", "description": "NSAIDs may reduce blood pressure-lowering effect." },
+        { "drug": "Potassium Supplements", "severity": "major", "description": "Risk of dangerous hyperkalemia (high potassium levels)." },
+        { "drug": "Spironolactone", "severity": "major", "description": "Combined use significantly increases risk of hyperkalemia." },
+        { "drug": "Lithium", "severity": "major", "description": "ACE inhibitors can increase lithium levels to toxic range." }
+      ]
+    },
+    {
+      "name": "Amoxicillin",
+      "genericName": "Amoxicillin",
+      "category": "Antibiotic (Penicillin)",
+      "commonUses": ["Bacterial infections", "Strep throat", "UTI", "H. pylori", "Dental infections"],
+      "sideEffects": ["Diarrhea", "Nausea", "Rash", "Allergic reaction"],
+      "interactions": [
+        { "drug": "Warfarin", "severity": "moderate", "description": "May increase warfarin's anticoagulant effect." },
+        { "drug": "Methotrexate", "severity": "major", "description": "Penicillins can reduce renal clearance of methotrexate." },
+        { "drug": "Oral Contraceptives", "severity": "minor", "description": "May theoretically reduce contraceptive effectiveness." }
+      ]
+    },
+    {
+      "name": "Omeprazole",
+      "genericName": "Omeprazole",
+      "category": "Proton Pump Inhibitor",
+      "commonUses": ["GERD", "Peptic ulcers", "Acid reflux", "Zollinger-Ellison syndrome"],
+      "sideEffects": ["Headache", "Nausea", "Vitamin B12 deficiency", "Bone fractures (long-term)"],
+      "interactions": [
+        { "drug": "Clopidogrel", "severity": "major", "description": "Significantly reduces the antiplatelet effect of clopidogrel via CYP2C19 inhibition." },
+        { "drug": "Warfarin", "severity": "moderate", "description": "May increase warfarin levels." },
+        { "drug": "Methotrexate", "severity": "moderate", "description": "PPIs can increase methotrexate levels." },
+        { "drug": "Iron Supplements", "severity": "moderate", "description": "Reduces iron absorption by decreasing stomach acid." }
+      ]
+    },
+    {
+      "name": "Atorvastatin",
+      "genericName": "Atorvastatin calcium",
+      "category": "Statin (HMG-CoA Reductase Inhibitor)",
+      "commonUses": ["High cholesterol", "Cardiovascular disease prevention", "Hyperlipidemia"],
+      "sideEffects": ["Muscle pain", "Liver enzyme elevation", "Digestive problems", "Memory issues"],
+      "interactions": [
+        { "drug": "Clarithromycin", "severity": "major", "description": "Increases statin levels significantly, raising risk of rhabdomyolysis." },
+        { "drug": "Cyclosporine", "severity": "major", "description": "Dramatically increases atorvastatin levels." },
+        { "drug": "Gemfibrozil", "severity": "major", "description": "Increases risk of muscle damage and rhabdomyolysis." },
+        { "drug": "Grapefruit Juice", "severity": "moderate", "description": "Can increase statin blood levels via CYP3A4 inhibition." },
+        { "drug": "Amlodipine", "severity": "moderate", "description": "May increase atorvastatin exposure." }
+      ]
+    },
+    {
+      "name": "Amlodipine",
+      "genericName": "Amlodipine besylate",
+      "category": "Calcium Channel Blocker",
+      "commonUses": ["Hypertension", "Angina", "Coronary artery disease"],
+      "sideEffects": ["Swelling", "Dizziness", "Flushing", "Fatigue"],
+      "interactions": [
+        { "drug": "Simvastatin", "severity": "major", "description": "Increases simvastatin levels, limit simvastatin to 20mg daily." },
+        { "drug": "Atorvastatin", "severity": "moderate", "description": "May increase atorvastatin exposure." },
+        { "drug": "Cyclosporine", "severity": "moderate", "description": "Amlodipine may increase cyclosporine levels." }
+      ]
+    },
+    {
+      "name": "Metoprolol",
+      "genericName": "Metoprolol tartrate/succinate",
+      "category": "Beta Blocker",
+      "commonUses": ["Hypertension", "Heart failure", "Angina", "Arrhythmias", "Migraine prevention"],
+      "sideEffects": ["Fatigue", "Bradycardia", "Cold extremities", "Depression"],
+      "interactions": [
+        { "drug": "Verapamil", "severity": "major", "description": "Can cause severe bradycardia, heart block, and heart failure." },
+        { "drug": "Clonidine", "severity": "major", "description": "Rebound hypertension risk if clonidine is stopped while on beta-blocker." },
+        { "drug": "Fluoxetine", "severity": "moderate", "description": "Fluoxetine inhibits CYP2D6, increasing metoprolol levels." },
+        { "drug": "Insulin", "severity": "moderate", "description": "May mask hypoglycemia symptoms in diabetic patients." }
+      ]
+    },
+    {
+      "name": "Fluoxetine",
+      "genericName": "Fluoxetine hydrochloride",
+      "category": "SSRI Antidepressant",
+      "commonUses": ["Depression", "OCD", "Panic disorder", "Bulimia"],
+      "sideEffects": ["Nausea", "Insomnia", "Sexual dysfunction", "Weight changes"],
+      "interactions": [
+        { "drug": "Tramadol", "severity": "major", "description": "Risk of serotonin syndrome and seizures." },
+        { "drug": "MAO Inhibitors", "severity": "contraindicated", "description": "Life-threatening serotonin syndrome. Must wait 14 days between use." },
+        { "drug": "Warfarin", "severity": "moderate", "description": "Increases bleeding risk." },
+        { "drug": "Metoprolol", "severity": "moderate", "description": "Increases metoprolol levels via CYP2D6 inhibition." },
+        { "drug": "Lithium", "severity": "moderate", "description": "May increase lithium levels, monitor closely." },
+        { "drug": "Triptans", "severity": "moderate", "description": "Theoretical risk of serotonin syndrome." }
+      ]
+    },
+    {
+      "name": "Levothyroxine",
+      "genericName": "Levothyroxine sodium",
+      "category": "Thyroid Hormone",
+      "commonUses": ["Hypothyroidism", "Thyroid hormone replacement", "TSH suppression"],
+      "sideEffects": ["Weight loss", "Tremor", "Palpitations", "Insomnia"],
+      "interactions": [
+        { "drug": "Calcium Supplements", "severity": "moderate", "description": "Calcium can reduce levothyroxine absorption. Separate by 4 hours." },
+        { "drug": "Iron Supplements", "severity": "moderate", "description": "Iron reduces absorption. Separate by 4 hours." },
+        { "drug": "Omeprazole", "severity": "moderate", "description": "PPIs may reduce levothyroxine absorption." },
+        { "drug": "Warfarin", "severity": "moderate", "description": "Levothyroxine may enhance warfarin's anticoagulant effect." }
+      ]
+    },
+    {
+      "name": "Prednisone",
+      "genericName": "Prednisone",
+      "category": "Corticosteroid",
+      "commonUses": ["Inflammation", "Autoimmune disorders", "Asthma", "Allergic reactions"],
+      "sideEffects": ["Weight gain", "Mood changes", "Insomnia", "Increased blood sugar", "Osteoporosis"],
+      "interactions": [
+        { "drug": "Metformin", "severity": "moderate", "description": "Can increase blood sugar, counteracting metformin's effect." },
+        { "drug": "Aspirin", "severity": "moderate", "description": "Increases risk of GI bleeding." },
+        { "drug": "Warfarin", "severity": "moderate", "description": "Can either increase or decrease warfarin's effect." },
+        { "drug": "Vaccines (Live)", "severity": "major", "description": "Immunosuppression may reduce vaccine effectiveness or cause infection." }
+      ]
+    },
+    {
+      "name": "Clopidogrel",
+      "genericName": "Clopidogrel bisulfate",
+      "category": "Antiplatelet",
+      "commonUses": ["Heart attack prevention", "Stroke prevention", "Peripheral arterial disease", "Stent placement"],
+      "sideEffects": ["Bleeding", "Bruising", "Diarrhea", "Rash"],
+      "interactions": [
+        { "drug": "Omeprazole", "severity": "major", "description": "Significantly reduces clopidogrel's antiplatelet effect." },
+        { "drug": "Aspirin", "severity": "moderate", "description": "Increases bleeding risk, sometimes used together therapeutically." },
+        { "drug": "Warfarin", "severity": "major", "description": "Substantially increases bleeding risk." },
+        { "drug": "Fluoxetine", "severity": "moderate", "description": "SSRIs increase bleeding risk with antiplatelet agents." }
+      ]
+    },
+    {
+      "name": "Gabapentin",
+      "genericName": "Gabapentin",
+      "category": "Anticonvulsant / Neuropathic Pain",
+      "commonUses": ["Neuropathic pain", "Epilepsy", "Postherpetic neuralgia", "Restless leg syndrome"],
+      "sideEffects": ["Drowsiness", "Dizziness", "Weight gain", "Peripheral edema"],
+      "interactions": [
+        { "drug": "Morphine", "severity": "major", "description": "Increases gabapentin levels and CNS depression." },
+        { "drug": "Antacids", "severity": "moderate", "description": "Aluminum/magnesium antacids reduce gabapentin absorption by 20%." },
+        { "drug": "Alcohol", "severity": "major", "description": "Increases CNS depression, causing excessive drowsiness." }
+      ]
+    },
+    {
+      "name": "Ciprofloxacin",
+      "genericName": "Ciprofloxacin",
+      "category": "Fluoroquinolone Antibiotic",
+      "commonUses": ["UTI", "Respiratory infections", "Bone infections", "Anthrax"],
+      "sideEffects": ["Nausea", "Tendon rupture", "CNS effects", "Photosensitivity"],
+      "interactions": [
+        { "drug": "Theophylline", "severity": "major", "description": "Increases theophylline levels, risk of seizures and cardiac arrhythmias." },
+        { "drug": "Warfarin", "severity": "major", "description": "Increases anticoagulant effect significantly." },
+        { "drug": "Iron Supplements", "severity": "moderate", "description": "Iron significantly reduces ciprofloxacin absorption." },
+        { "drug": "Calcium Supplements", "severity": "moderate", "description": "Calcium reduces ciprofloxacin absorption." },
+        { "drug": "Tizanidine", "severity": "contraindicated", "description": "Ciprofloxacin dramatically increases tizanidine levels, causing severe hypotension." }
+      ]
+    },
+    {
+      "name": "Losartan",
+      "genericName": "Losartan potassium",
+      "category": "Angiotensin II Receptor Blocker (ARB)",
+      "commonUses": ["Hypertension", "Diabetic nephropathy", "Heart failure"],
+      "sideEffects": ["Dizziness", "Hyperkalemia", "Fatigue", "Cough (less than ACE inhibitors)"],
+      "interactions": [
+        { "drug": "Potassium Supplements", "severity": "major", "description": "Risk of dangerous hyperkalemia." },
+        { "drug": "Lisinopril", "severity": "major", "description": "Dual RAAS blockade increases risks without clear benefit." },
+        { "drug": "Lithium", "severity": "major", "description": "Can increase lithium levels to toxic range." },
+        { "drug": "Ibuprofen", "severity": "moderate", "description": "NSAIDs may reduce antihypertensive effect and affect kidney function." }
+      ]
+    },
+    {
+      "name": "Tramadol",
+      "genericName": "Tramadol hydrochloride",
+      "category": "Opioid Analgesic",
+      "commonUses": ["Moderate to severe pain", "Chronic pain management"],
+      "sideEffects": ["Nausea", "Dizziness", "Constipation", "Seizures", "Dependence"],
+      "interactions": [
+        { "drug": "Fluoxetine", "severity": "major", "description": "Risk of serotonin syndrome and seizures." },
+        { "drug": "MAO Inhibitors", "severity": "contraindicated", "description": "Life-threatening risk of serotonin syndrome." },
+        { "drug": "Carbamazepine", "severity": "major", "description": "Reduces tramadol effectiveness while increasing seizure risk." },
+        { "drug": "Alcohol", "severity": "major", "description": "Severe CNS and respiratory depression." }
+      ]
+    },
+    {
+      "name": "Metronidazole",
+      "genericName": "Metronidazole",
+      "category": "Antibiotic / Antiprotozoal",
+      "commonUses": ["Bacterial vaginosis", "C. difficile", "H. pylori", "Dental infections", "Parasitic infections"],
+      "sideEffects": ["Nausea", "Metallic taste", "Dark urine", "Neuropathy"],
+      "interactions": [
+        { "drug": "Alcohol", "severity": "major", "description": "Causes severe disulfiram-like reaction: nausea, vomiting, flushing." },
+        { "drug": "Warfarin", "severity": "major", "description": "Dramatically increases anticoagulant effect." },
+        { "drug": "Lithium", "severity": "major", "description": "Can increase lithium levels to toxic range." }
+      ]
+    },
+    {
+      "name": "Diazepam",
+      "genericName": "Diazepam",
+      "category": "Benzodiazepine",
+      "commonUses": ["Anxiety", "Muscle spasms", "Seizures", "Alcohol withdrawal"],
+      "sideEffects": ["Drowsiness", "Dependence", "Impaired coordination", "Memory issues"],
+      "interactions": [
+        { "drug": "Alcohol", "severity": "major", "description": "Severe CNS depression, respiratory failure risk." },
+        { "drug": "Opioids", "severity": "major", "description": "Life-threatening respiratory depression." },
+        { "drug": "Fluoxetine", "severity": "moderate", "description": "May increase diazepam levels." },
+        { "drug": "Omeprazole", "severity": "moderate", "description": "May increase diazepam levels." }
+      ]
+    },
+    {
+      "name": "Paracetamol",
+      "genericName": "Acetaminophen",
+      "category": "Analgesic / Antipyretic",
+      "commonUses": ["Pain relief", "Fever reduction", "Headache", "Cold and flu"],
+      "sideEffects": ["Liver damage (high doses)", "Nausea", "Allergic reaction (rare)"],
+      "interactions": [
+        { "drug": "Warfarin", "severity": "moderate", "description": "Regular use may increase INR and bleeding risk." },
+        { "drug": "Alcohol", "severity": "major", "description": "Significantly increases risk of liver damage." },
+        { "drug": "Isoniazid", "severity": "major", "description": "Increases risk of hepatotoxicity." }
+      ]
+    },
+    {
+      "name": "Cetirizine",
+      "genericName": "Cetirizine hydrochloride",
+      "category": "Antihistamine",
+      "commonUses": ["Allergies", "Hay fever", "Urticaria", "Allergic rhinitis"],
+      "sideEffects": ["Drowsiness", "Dry mouth", "Headache", "Fatigue"],
+      "interactions": [
+        { "drug": "Alcohol", "severity": "moderate", "description": "Increases drowsiness and CNS depression." },
+        { "drug": "Diazepam", "severity": "moderate", "description": "Additive CNS depression effects." },
+        { "drug": "Theophylline", "severity": "minor", "description": "Theophylline may slightly decrease cetirizine clearance." }
+      ]
+    },
+    {
+      "name": "Pantoprazole",
+      "genericName": "Pantoprazole sodium",
+      "category": "Proton Pump Inhibitor",
+      "commonUses": ["GERD", "Erosive esophagitis", "Zollinger-Ellison syndrome"],
+      "sideEffects": ["Headache", "Diarrhea", "Nausea", "Vitamin B12 deficiency"],
+      "interactions": [
+        { "drug": "Clopidogrel", "severity": "moderate", "description": "May reduce clopidogrel activation, though less than omeprazole." },
+        { "drug": "Methotrexate", "severity": "moderate", "description": "Can increase methotrexate levels." },
+        { "drug": "Iron Supplements", "severity": "moderate", "description": "Reduces iron absorption." }
+      ]
+    },
+    {
+      "name": "Azithromycin",
+      "genericName": "Azithromycin",
+      "category": "Macrolide Antibiotic",
+      "commonUses": ["Respiratory infections", "Skin infections", "STIs", "Ear infections"],
+      "sideEffects": ["Nausea", "Diarrhea", "Abdominal pain", "QT prolongation"],
+      "interactions": [
+        { "drug": "Warfarin", "severity": "moderate", "description": "May increase anticoagulant effect." },
+        { "drug": "Cyclosporine", "severity": "moderate", "description": "May increase cyclosporine levels." },
+        { "drug": "Antacids", "severity": "moderate", "description": "Antacids reduce azithromycin absorption. Separate by 2 hours." }
+      ]
+    }
+  ]
+}

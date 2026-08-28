@@ -1,0 +1,410 @@
+/* ═══════════════════════════════════════════════════════════════
+   Login Page — DNA Helix + Glassmorphic Form
+   ═══════════════════════════════════════════════════════════════ */
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  background: #060b18;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ─── Left Visual Panel ─────────────────────────────────────── */
+.login-visual {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-dna-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.login-visual-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(6, 11, 24, 0.2) 0%,
+    rgba(6, 11, 24, 0.6) 85%,
+    rgba(6, 11, 24, 0.95) 100%
+  );
+}
+
+/* ─── Right Form Panel ──────────────────────────────────────── */
+.login-form-panel {
+  width: 440px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) var(--space-8);
+  position: relative;
+  background: rgba(6, 11, 24, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+/* ─── Floating Badges ───────────────────────────────────────── */
+.login-badge {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 8px 14px;
+  background: rgba(10, 16, 40, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  z-index: 10;
+}
+
+.login-badge-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.45);
+  display: block;
+  text-transform: uppercase;
+}
+.login-badge-value {
+  font-size: var(--font-sm);
+  font-weight: 700;
+  color: #fff;
+  display: block;
+}
+.login-badge-active { color: #00d4aa !important; }
+
+.login-badge-tl { top: 28px; left: 28px; flex-direction: column; align-items: flex-start; }
+.login-badge-tr { top: 28px; right: 28px; flex-direction: column; align-items: flex-start; }
+.login-badge-bl { bottom: 28px; left: 28px; }
+.login-badge-br { bottom: 28px; right: 28px; }
+
+/* Status dots */
+.login-badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.login-badge-dot-running {
+  background: #f59e0b;
+  animation: pulse-emergency 1.5s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.6);
+}
+.login-badge-dot-online {
+  background: #10b981;
+  animation: pulse-emergency 2s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+}
+
+/* ─── Login Card ────────────────────────────────────────────── */
+.login-card {
+  width: 100%;
+  background: rgba(12, 20, 50, 0.75);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.login-card-header { display: flex; flex-direction: column; gap: var(--space-2); }
+.login-card-title {
+  font-size: var(--font-xl);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+.login-card-subtitle {
+  font-size: var(--font-sm);
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.5;
+}
+
+/* Error banner */
+.login-error-banner {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-sm);
+  color: #fca5a5;
+  text-align: center;
+}
+
+/* ─── Form Fields ───────────────────────────────────────────── */
+.login-form { display: flex; flex-direction: column; gap: var(--space-4); }
+
+.login-field { display: flex; flex-direction: column; gap: 6px; }
+
+.login-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+}
+
+.login-input {
+  width: 100%;
+  padding: 13px 16px;
+  background: rgba(255, 255, 255, 0.93);
+  border: 2px solid transparent;
+  border-radius: var(--radius-lg);
+  font-size: var(--font-sm);
+  font-family: var(--font-family);
+  color: #1a1a2e;
+  font-weight: 500;
+  transition: all 200ms ease;
+  outline: none;
+}
+.login-input::placeholder { color: #9ca3af; }
+.login-input:focus {
+  border-color: #0094ff;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(0, 148, 255, 0.15);
+}
+.login-input-err { border-color: #ef4444 !important; }
+.login-field-err { font-size: var(--font-xs); color: #f87171; }
+
+/* Remember + Forgot row */
+.login-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.login-remember {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-xs);
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+}
+.login-remember input[type="checkbox"] { width: 14px; height: 14px; cursor: pointer; }
+.login-forgot {
+  font-size: var(--font-xs);
+  color: #4db8ff;
+  font-weight: 500;
+  transition: opacity 150ms ease;
+}
+.login-forgot:hover { opacity: 0.8; }
+
+/* Submit Button */
+.login-submit {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #0094ff 0%, #0070cc 100%);
+  color: #fff;
+  font-weight: 700;
+  font-size: var(--font-base);
+  font-family: var(--font-family);
+  border-radius: var(--radius-lg);
+  border: none;
+  cursor: pointer;
+  transition: all 200ms ease;
+  box-shadow: 0 4px 20px rgba(0, 148, 255, 0.35);
+}
+.login-submit:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 28px rgba(0, 148, 255, 0.5);
+}
+.login-submit:disabled { opacity: 0.7; cursor: not-allowed; }
+
+.login-submit-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
+.login-loader {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Divider */
+.login-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-align: center;
+}
+.login-divider::before,
+.login-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+.login-divider span {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.3);
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+/* Google button */
+.login-google {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+.login-google:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Register link */
+.login-register-link {
+  text-align: center;
+  font-size: var(--font-xs);
+  color: rgba(255, 255, 255, 0.4);
+}
+.login-register-link a {
+  color: #4db8ff;
+  font-weight: 600;
+  transition: opacity 150ms ease;
+}
+.login-register-link a:hover { opacity: 0.8; }
+
+/* ─── Responsive ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .login-visual { display: none; }
+  .login-form-panel { width: 100%; padding: var(--space-6); }
+  .login-badge-tl, .login-badge-bl { display: none; }
+  .login-badge-tr { top: 16px; right: 16px; }
+  .login-badge-br { bottom: 16px; right: 16px; }
+}
+
+/* Google Mock Sign-In Modal styles */
+.google-mock-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+}
+
+.google-mock-modal {
+  width: 100%;
+  max-width: 420px;
+  padding: var(--space-6);
+  background: rgba(30, 27, 46, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.google-mock-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-2);
+}
+
+.google-mock-header h3 {
+  font-size: var(--font-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.google-mock-desc {
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+  margin-bottom: var(--space-6);
+}
+
+.google-mock-accounts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.google-mock-account-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: left;
+}
+
+.google-mock-account-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.google-mock-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--accent-secondary);
+  color: var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: var(--font-sm);
+}
+
+.google-mock-account-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.google-mock-name {
+  font-size: var(--font-xs);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.google-mock-email {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.google-mock-cancel {
+  padding: var(--space-3);
+  border-radius: var(--radius-lg);
+  font-weight: 600;
+}
