@@ -95,6 +95,16 @@ npm run dev
 ```
 *Vite will compile assets and serve the client app on `http://localhost:5173`.*
 
+### Frontend Deployment
+
+When deploying the frontend, configure `VITE_API_BASE_URL` to point at the live backend API, for example:
+
+```bash
+VITE_API_BASE_URL=https://your-backend-domain.com/api
+```
+
+The frontend reads this value from `frontend/src/services/api.js` at build time.
+
 ---
 
 ## 📂 Project Structure
