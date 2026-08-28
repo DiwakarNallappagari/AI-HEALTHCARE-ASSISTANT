@@ -346,65 +346,63 @@
   margin-bottom: var(--space-6);
 }
 
-.google-mock-accounts {
+.google-mock-form {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-4);
   margin-bottom: var(--space-6);
 }
 
-.google-mock-account-btn {
-  width: 100%;
+.google-mock-field {
   display: flex;
-  align-items: center;
-  gap: var(--space-4);
-  padding: var(--space-3) var(--space-4);
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-lg);
-  cursor: pointer;
-  transition: all var(--transition-fast);
+  flex-direction: column;
+  gap: 6px;
   text-align: left;
 }
 
-.google-mock-account-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.15);
-  transform: translateY(-1px);
-}
-
-.google-mock-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-full);
-  background: var(--accent-secondary);
-  color: var(--bg-card);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.google-mock-field label {
+  font-size: 0.68rem;
   font-weight: 700;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+}
+
+.google-mock-input {
+  width: 100%;
+  padding: 13px 16px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 2px solid transparent;
+  border-radius: var(--radius-lg);
   font-size: var(--font-sm);
+  font-family: var(--font-family);
+  color: #1a1a2e;
+  font-weight: 500;
+  transition: all 200ms ease;
+  outline: none;
 }
 
-.google-mock-account-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+.google-mock-input::placeholder { color: #9ca3af; }
+.google-mock-input:focus {
+  border-color: #0094ff;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(0, 148, 255, 0.15);
 }
+.google-mock-input-err { border-color: #ef4444 !important; }
+.google-mock-error { font-size: var(--font-xs); color: #f87171; }
 
-.google-mock-name {
-  font-size: var(--font-xs);
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.google-mock-email {
-  font-size: 0.7rem;
-  color: var(--text-muted);
+.google-mock-submit {
+  margin-top: var(--space-2);
 }
 
 .google-mock-cancel {
   padding: var(--space-3);
   border-radius: var(--radius-lg);
   font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .google-mock-modal {
+    max-width: 100%;
+  }
 }

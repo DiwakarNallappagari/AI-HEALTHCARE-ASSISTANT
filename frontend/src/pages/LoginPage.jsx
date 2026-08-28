@@ -3,11 +3,10 @@
  * DNA helix background left panel + glassmorphic login form right panel
  * Floating status badges: GENE SEQ, DNA MATCH, ANALYSIS, AI STATUS
  */
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/Toast';
-import { authAPI } from '../services/api';
 import './LoginPage.css';
 
 const LoginPage = () => {
@@ -17,18 +16,32 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [showMockGoogle, setShowMockGoogle] = useState(false);
+  const [googleEmail, setGoogleEmail] = useState('');
+  const [googleName, setGoogleName] = useState('');
+  const [googleErrors, setGoogleErrors] = useState({});
   const { login, googleLogin } = useAuth();
   const navigate = useNavigate();
   const toast = useToast();
 
-  const handleMockGoogleLogin = async (emailPrefix, name, customEmail) => {
+  const buildGoogleDisplayName = (email) => {
+    const prefix = email.split('@')[0] || 'google user';
+    return prefix
+      .replace(/[._-]+/g, ' ')
+      .replace(/\b\w/g, (char) => char.toUpperCase())
+      .trim() || 'Google User';
+  };
+
+  const handleMockGoogleLogin = async (email, name = '') => {
     setLoading(true);
     try {
+      const cleanEmail = email.trim().toLowerCase();
+      const cleanName = (name || buildGoogleDisplayName(cleanEmail)).trim();
+      const emailPrefix = cleanEmail.split('@')[0].replace(/[^a-zA-Z0-9_.-]/g, '') || 'google';
       const idToken = `mock-google-token-${emailPrefix}`;
-      const email = customEmail || `${emailPrefix.replace('_', '.')}@gmail.com`;
-      await googleLogin(idToken, { name, email });
 
-      toast.success(`Welcome, ${name}! Signed in with Google.`);
+      await googleLogin(idToken, { name: cleanName, email: cleanEmail });
+
+      toast.success(`Welcome, ${cleanName}! Signed in with Google.`);
       navigate('/dashboard');
     } catch (err) {
       console.error('Mock Google sign-in failed', err);
@@ -40,50 +53,19 @@ const LoginPage = () => {
     }
   };
 
-  // Google Identity Services setup
-  useEffect(() => {
-    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-    if (!clientId) return;
+  const validateGoogleModal = () => {
+    const errs = {};
+    if (!googleEmail.trim()) errs.email = 'Email is required';
+    else if (!/^\S+@\S+\.\S+$/.test(googleEmail.trim())) errs.email = 'Invalid email';
+    setGoogleErrors(errs);
+    return Object.keys(errs).length === 0;
+  };
 
-    const handleCredentialResponse = async (response) => {
-      try {
-        const idToken = response?.credential;
-        if (!idToken) throw new Error('No credential returned from Google');
-
-        const res = await authAPI.googleLogin(idToken);
-        const { token: newToken, user: userData } = res.data.data;
-
-        localStorage.setItem('token', newToken);
-        localStorage.setItem('user', JSON.stringify(userData));
-
-        toast.success('Signed in with Google');
-        window.location.href = '/dashboard';
-      } catch (err) {
-        console.error('Google sign-in failed', err);
-        toast.error('Google sign-in failed');
-      }
-    };
-
-    const initialize = () => {
-      if (window.google && window.google.accounts && window.google.accounts.id) {
-        window.google.accounts.id.initialize({
-          client_id: clientId,
-          callback: handleCredentialResponse,
-        });
-      }
-    };
-
-    if (!window.google) {
-      const script = document.createElement('script');
-      script.src = 'https://accounts.google.com/gsi/client';
-      script.async = true;
-      script.defer = true;
-      script.onload = initialize;
-      document.body.appendChild(script);
-    } else {
-      initialize();
-    }
-  }, [toast]);
+  const handleGoogleModalSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateGoogleModal()) return;
+    await handleMockGoogleLogin(googleEmail, googleName);
+  };
 
   const validate = () => {
     const errs = {};
@@ -220,14 +202,7 @@ const LoginPage = () => {
               type="button"
               className="login-google"
               id="login-google-btn"
-              onClick={() => {
-                const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-                if (clientId && window.google && window.google.accounts && window.google.accounts.id) {
-                  window.google.accounts.id.prompt();
-                } else {
-                  setShowMockGoogle(true);
-                }
-              }}
+              onClick={() => setShowMockGoogle(true)}
             >
               <svg width="20" height="20" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -257,39 +232,50 @@ const LoginPage = () => {
                 <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
                 <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
               </svg>
-              <h3>Sign in with Google</h3>
+              <h3>Quick Google Login</h3>
             </div>
-            <p className="google-mock-desc">Choose a Google Account (Mock Developer Mode)</p>
-            
-            <div className="google-mock-accounts">
-              <button type="button" className="google-mock-account-btn" onClick={() => handleMockGoogleLogin('deepak', 'Deepak', 'deepakveduruparthi@gmail.com')} id="mock-google-deepak-btn">
-                <div className="google-mock-avatar" style={{ background: 'linear-gradient(135deg, #00d4aa, #00b4d8)', color: '#0a0e27', fontWeight: 800 }}>D</div>
-                <div className="google-mock-account-info">
-                  <span className="google-mock-name">Deepak</span>
-                  <span className="google-mock-email">deepakveduruparthi@gmail.com</span>
-                </div>
+            <p className="google-mock-desc">Enter a new Google email to create or access an account without showing saved accounts.</p>
+
+            <form className="google-mock-form" onSubmit={handleGoogleModalSubmit}>
+              <div className="google-mock-field">
+                <label htmlFor="google-name">Display Name</label>
+                <input
+                  id="google-name"
+                  type="text"
+                  className={`google-mock-input ${googleErrors.name ? 'google-mock-input-err' : ''}`}
+                  placeholder="Auto-generated if left blank"
+                  value={googleName}
+                  onChange={(e) => setGoogleName(e.target.value)}
+                />
+                {googleErrors.name && <span className="google-mock-error">{googleErrors.name}</span>}
+              </div>
+
+              <div className="google-mock-field">
+                <label htmlFor="google-email">Google Email</label>
+                <input
+                  id="google-email"
+                  type="email"
+                  className={`google-mock-input ${googleErrors.email ? 'google-mock-input-err' : ''}`}
+                  placeholder="you@gmail.com"
+                  value={googleEmail}
+                  onChange={(e) => {
+                    setGoogleEmail(e.target.value);
+                    if (googleErrors.email) {
+                      setGoogleErrors((prev) => ({ ...prev, email: undefined }));
+                    }
+                  }}
+                />
+                {googleErrors.email && <span className="google-mock-error">{googleErrors.email}</span>}
+              </div>
+
+              <button type="submit" className="login-submit google-mock-submit" disabled={loading} id="mock-google-submit-btn">
+                {loading ? 'Signing in...' : 'Continue with Google'}
               </button>
 
-              <button type="button" className="google-mock-account-btn" onClick={() => handleMockGoogleLogin('jane_doe', 'Jane Doe', 'jane.doe@gmail.com')} id="mock-google-jane-btn">
-                <div className="google-mock-avatar">JD</div>
-                <div className="google-mock-account-info">
-                  <span className="google-mock-name">Jane Doe</span>
-                  <span className="google-mock-email">jane.doe@gmail.com</span>
-                </div>
+              <button type="button" className="btn btn-secondary w-full google-mock-cancel" onClick={() => setShowMockGoogle(false)} id="mock-google-cancel-btn">
+                Cancel
               </button>
-
-              <button type="button" className="google-mock-account-btn" onClick={() => handleMockGoogleLogin('bob_smith', 'Bob Smith', 'bob.smith@gmail.com')} id="mock-google-bob-btn">
-                <div className="google-mock-avatar">BS</div>
-                <div className="google-mock-account-info">
-                  <span className="google-mock-name">Bob Smith</span>
-                  <span className="google-mock-email">bob.smith@gmail.com</span>
-                </div>
-              </button>
-            </div>
-            
-            <button type="button" className="btn btn-secondary w-full google-mock-cancel" onClick={() => setShowMockGoogle(false)} id="mock-google-cancel-btn">
-              Cancel
-            </button>
+            </form>
           </div>
         </div>
       )}
