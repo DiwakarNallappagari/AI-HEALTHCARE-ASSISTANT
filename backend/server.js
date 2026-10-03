@@ -56,28 +56,31 @@ const isAllowedOrigin = (origin) => {
   }
 };
 
-// ─── Security Middleware ─────────────────────────────────────────────
+// ─── Security & CORS Middleware ──────────────────────────────────────
 app.use(
   helmet({
-    crossOriginOpenerPolicy: { policy: 'same-origin-allow-popups' },
-    crossOriginResourcePolicy: { policy: 'cross-origin' },
+    crossOriginOpenerPolicy: false,
+    crossOriginResourcePolicy: false,
   })
 );
 
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (isAllowedOrigin(origin)) {
-      return callback(null, true);
-    }
-    return callback(null, false);
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-};
+// Custom Bulletproof CORS Middleware & Preflight Handler
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  } else {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+  }
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, Origin');
 
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end();
+  }
+  next();
+});
 
 // ─── Rate Limiting ───────────────────────────────────────────────────
 const limiter = rateLimit({
