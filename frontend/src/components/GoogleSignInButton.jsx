@@ -2,7 +2,7 @@
  * GoogleSignInButton Component
  * Integrates Google Identity Services (GIS) for real Google Sign-In
  */
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 
 const GoogleSignInButton = ({ onSuccess, onError, disabled, text = 'continue_with' }) => {
   const buttonRef = useRef(null);
@@ -14,6 +14,27 @@ const GoogleSignInButton = ({ onSuccess, onError, disabled, text = 'continue_wit
     clientId &&
     clientId !== 'your_google_oauth_client_id' &&
     clientId.trim() !== ''
+  );
+
+  const handleCredential = useCallback(
+    async (response) => {
+      if (!response.credential) {
+        if (onError) onError('No Google credential returned');
+        return;
+      }
+
+      setLoading(true);
+      try {
+        if (onSuccess) {
+          await onSuccess(response.credential);
+        }
+      } catch (err) {
+        if (onError) onError(err);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [onSuccess, onError]
   );
 
   useEffect(() => {
@@ -32,23 +53,7 @@ const GoogleSignInButton = ({ onSuccess, onError, disabled, text = 'continue_wit
       try {
         window.google.accounts.id.initialize({
           client_id: clientId,
-          callback: async (response) => {
-            if (!response.credential) {
-              if (onError) onError('No Google credential returned');
-              return;
-            }
-
-            if (isMounted) setLoading(true);
-            try {
-              if (onSuccess) {
-                await onSuccess(response.credential);
-              }
-            } catch (err) {
-              if (onError) onError(err);
-            } finally {
-              if (isMounted) setLoading(false);
-            }
-          },
+          callback: handleCredential,
           auto_select: false,
           cancel_on_tap_outside: true,
         });
@@ -62,7 +67,7 @@ const GoogleSignInButton = ({ onSuccess, onError, disabled, text = 'continue_wit
             text: text,
             shape: 'rectangular',
             logo_alignment: 'left',
-            width: '100%',
+            width: 320,
           });
         }
         return true;
@@ -89,25 +94,7 @@ const GoogleSignInButton = ({ onSuccess, onError, disabled, text = 'continue_wit
     return () => {
       isMounted = false;
     };
-  }, [clientId, isConfigured, onSuccess, onError, text]);
-
-  const handleCustomClick = () => {
-    if (!isConfigured) {
-      if (onError) {
-        onError('Google Client ID is not configured. Please add VITE_GOOGLE_CLIENT_ID to frontend/.env');
-      }
-      return;
-    }
-
-    if (window.google?.accounts?.id) {
-      window.google.accounts.id.prompt((notification) => {
-        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-          // If prompt was dismissed or skipped, user can click rendered button
-          console.log('GIS prompt status:', notification.getNotDisplayedReason() || notification.getSkippedReason());
-        }
-      });
-    }
-  };
+  }, [clientId, isConfigured, text, handleCredential]);
 
   if (configError || !isConfigured) {
     return (
@@ -126,7 +113,6 @@ const GoogleSignInButton = ({ onSuccess, onError, disabled, text = 'continue_wit
       <div
         ref={buttonRef}
         className={`google-signin-container ${loading || disabled ? 'disabled' : ''}`}
-        onClick={handleCustomClick}
       />
     </div>
   );

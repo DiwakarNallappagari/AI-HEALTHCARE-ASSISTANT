@@ -45,24 +45,39 @@ const isAllowedOrigin = (origin) => {
 
   try {
     const parsedOrigin = new URL(origin);
-    return parsedOrigin.hostname.endsWith('.vercel.app') || parsedOrigin.hostname === 'vercel.app';
+    return (
+      parsedOrigin.hostname.endsWith('.vercel.app') ||
+      parsedOrigin.hostname === 'vercel.app' ||
+      parsedOrigin.hostname === 'localhost' ||
+      parsedOrigin.hostname === '127.0.0.1'
+    );
   } catch (error) {
     return false;
   }
 };
 
 // ─── Security Middleware ─────────────────────────────────────────────
-app.use(helmet());
-app.use(cors({
+app.use(
+  helmet({
+    crossOriginOpenerPolicy: { policy: 'same-origin-allow-popups' },
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+  })
+);
+
+const corsOptions = {
   origin: (origin, callback) => {
     if (isAllowedOrigin(origin)) {
       return callback(null, true);
     }
-
-    return callback(new Error(`CORS blocked for origin: ${origin}`));
+    return callback(null, false);
   },
   credentials: true,
-}));
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 // ─── Rate Limiting ───────────────────────────────────────────────────
 const limiter = rateLimit({
