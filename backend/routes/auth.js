@@ -150,94 +150,89 @@ router.put('/profile', protect, async (req, res, next) => {
  */
 router.post('/google', async (req, res, next) => {
   try {
-    const { idToken, name: customName, email: customEmail } = req.body;
+    const { idToken } = req.body;
     if (!idToken) {
-      return errorResponse(res, 'ID token is required', 400);
+      return errorResponse(res, 'Google ID token is required', 400);
     }
 
-    // Mock Google sign-in (for development and preview)
-    if (idToken.startsWith('mock-google-token-') || !GOOGLE_CLIENT_ID || GOOGLE_CLIENT_ID === 'your_google_client_id_here') {
-      let emailPrefix = idToken.replace('mock-google-token-', '').replace(/[^a-zA-Z0-9_.]/g, '');
-      if (!emailPrefix || emailPrefix === 'google') emailPrefix = 'jane_doe';
-      
-      const email = (customEmail || `${emailPrefix.replace('_', '.')}@gmail.com`).toLowerCase();
-      const name = customName || emailPrefix.split(/[_.]/).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') || 'Google User';
-
-      let user = await User.findOne({ email });
-      if (!user) {
-        const randomPass = crypto.randomBytes(32).toString('hex');
-        user = await User.create({
-          name,
-          email,
-          password: randomPass,
-          gender: 'other',
-          bloodGroup: '',
-        });
-      }
-
-      const token = generateToken(user._id);
-
-      return successResponse(res, {
-        user: {
-          id: user._id,
-          name: user.name,
-          email: user.email,
-          gender: user.gender,
-          bloodGroup: user.bloodGroup,
-        },
-        token,
-      }, 'Google sign-in successful');
+    if (!GOOGLE_CLIENT_ID || GOOGLE_CLIENT_ID === 'your_google_oauth_client_id') {
+      return errorResponse(
+        res,
+        'Google OAuth Client ID is missing on the server. Please set GOOGLE_CLIENT_ID in backend/.env',
+        400
+      );
     }
 
-    // Real Google OAuth verification
+    let payload;
     try {
       const client = new OAuth2Client(GOOGLE_CLIENT_ID);
-      const ticket = await client.verifyIdToken({ idToken, audience: GOOGLE_CLIENT_ID });
-      const payload = ticket.getPayload();
-      const email = payload.email.toLowerCase();
-      const name = payload.name || email.split('@')[0];
-
-      let user = await User.findOne({ email });
-      if (!user) {
-        const randomPass = crypto.randomBytes(32).toString('hex');
-        user = await User.create({
-          name,
-          email,
-          password: randomPass,
-          gender: 'other',
-          bloodGroup: '',
-        });
-      }
-
-      const token = generateToken(user._id);
-
-      return successResponse(res, {
-        user: {
-          id: user._id,
-          name: user.name,
-          email: user.email,
-          gender: user.gender,
-          bloodGroup: user.bloodGroup,
-        },
-        token,
-      }, 'Google sign-in successful');
+      const ticket = await client.verifyIdToken({
+        idToken,
+        audience: GOOGLE_CLIENT_ID,
+      });
+      payload = ticket.getPayload();
     } catch (verifyErr) {
-      console.warn('Google ID token verification failed, using dev fallback:', verifyErr.message);
-      // Fallback for development if token verification fails
-      const email = 'user.google@gmail.com';
-      let user = await User.findOne({ email });
-      if (!user) {
-        const randomPass = crypto.randomBytes(32).toString('hex');
-        user = await User.create({ name: 'Google User', email, password: randomPass });
-      }
-      const token = generateToken(user._id);
-      return successResponse(res, {
-        user: { id: user._id, name: user.name, email: user.email },
-        token,
-      }, 'Google sign-in successful');
+      console.error('Google ID token verification failed:', verifyErr.message);
+      return errorResponse(res, `Google Token Verification Failed: ${verifyErr.message}`, 401);
     }
+
+    if (!payload || !payload.sub || !payload.email) {
+      return errorResponse(res, 'Invalid token claims received from Google', 401);
+    }
+
+    if (!payload.email_verified) {
+      return errorResponse(res, 'Google email address is not verified', 400);
+    }
+
+    const googleId = payload.sub;
+    const email = payload.email.toLowerCase();
+    const name = payload.name || email.split('@')[0];
+    const picture = payload.picture || '';
+
+    // 1. Search by Google Subject ID
+    let user = await User.findOne({ googleId });
+
+    // 2. If not found by googleId, search by email
+    if (!user) {
+      user = await User.findOne({ email });
+      if (user) {
+        if (!user.googleId) {
+          user.googleId = googleId;
+        }
+        if (picture && !user.picture) {
+          user.picture = picture;
+        }
+        await user.save();
+      }
+    }
+
+    // 3. Create new user if account doesn't exist
+    if (!user) {
+      user = await User.create({
+        googleId,
+        name,
+        email,
+        picture,
+        gender: 'other',
+        bloodGroup: '',
+      });
+    }
+
+    const token = generateToken(user._id);
+
+    return successResponse(res, {
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        picture: user.picture,
+        gender: user.gender,
+        bloodGroup: user.bloodGroup,
+      },
+      token,
+    }, 'Google sign-in successful');
   } catch (error) {
-    console.error('Google auth route error:', error);
+    console.error('Google auth error:', error);
     next(error);
   }
 });

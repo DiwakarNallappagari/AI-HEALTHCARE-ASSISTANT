@@ -51,7 +51,7 @@ export const authAPI = {
 };
 
 // Google sign-in
-authAPI.googleLogin = (idToken, extra = {}) => api.post('/auth/google', { idToken, ...extra });
+authAPI.googleLogin = (idToken) => api.post('/auth/google', { idToken });
 
 // ─── Chat API ────────────────────────────────────────────────
 export const chatAPI = {

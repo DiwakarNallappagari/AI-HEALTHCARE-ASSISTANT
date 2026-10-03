@@ -1,12 +1,12 @@
 /**
- * Register Page
- * Multi-field registration with password strength indicator
+ * Register Page — Multi-field registration + Real Google Sign-Up
  */
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/Toast';
 import { FiUser, FiMail, FiLock, FiArrowRight, FiHeart } from 'react-icons/fi';
+import GoogleSignInButton from '../components/GoogleSignInButton';
 import './AuthPages.css';
 
 const RegisterPage = () => {
@@ -16,7 +16,7 @@ const RegisterPage = () => {
   });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
-  const { register } = useAuth();
+  const { register, googleLogin } = useAuth();
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -41,6 +41,27 @@ const RegisterPage = () => {
   const strengthColors = ['', '#ef4444', '#f59e0b', '#eab308', '#10b981', '#00d4aa'];
   const pwdStrength = getPasswordStrength(form.password);
 
+  const handleGoogleSuccess = async (idToken) => {
+    setLoading(true);
+    try {
+      const userData = await googleLogin(idToken);
+      toast.success(`Welcome, ${userData.name || 'User'}! Account created with Google.`);
+      navigate('/dashboard');
+    } catch (err) {
+      console.error('Google Sign-In backend error:', err);
+      const msg = err.response?.data?.message || err.message || 'Google Sign-In failed';
+      toast.error(msg);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleError = (err) => {
+    console.error('Google Sign-In error:', err);
+    const msg = typeof err === 'string' ? err : (err.message || 'Google Sign-In error');
+    toast.error(msg);
+  };
+
   const validate = () => {
     const errs = {};
     if (!form.name.trim()) errs.name = 'Name is required';
@@ -59,7 +80,7 @@ const RegisterPage = () => {
 
     setLoading(true);
     try {
-      const { confirmPassword, ...data } = form;
+      const { confirmPassword: _confirmPassword, ...data } = form;
       await register(data);
       toast.success('Account created successfully!');
       navigate('/dashboard');
@@ -175,7 +196,18 @@ const RegisterPage = () => {
             {!loading && <FiArrowRight size={18} />}
           </button>
 
-          <p className="auth-switch">
+          <div className="login-divider" style={{ margin: '16px 0' }}>
+            <span>OR SIGN UP WITH</span>
+          </div>
+
+          <GoogleSignInButton
+            onSuccess={handleGoogleSuccess}
+            onError={handleGoogleError}
+            disabled={loading}
+            text="signup_with"
+          />
+
+          <p className="auth-switch" style={{ marginTop: '16px' }}>
             Already have an account?{' '}
             <Link to="/login" className="auth-switch-link">Sign in</Link>
           </p>

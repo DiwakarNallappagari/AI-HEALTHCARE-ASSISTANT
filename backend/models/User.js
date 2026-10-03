@@ -23,9 +23,16 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: [true, 'Password is required'],
-    minlength: [6, 'Password must be at least 6 characters'],
     select: false, // Don't return password by default
+  },
+  googleId: {
+    type: String,
+    unique: true,
+    sparse: true,
+  },
+  picture: {
+    type: String,
+    default: '',
   },
   dateOfBirth: {
     type: Date,
@@ -57,7 +64,7 @@ const userSchema = new mongoose.Schema({
 
 // Hash password before saving
 userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
+  if (!this.password || !this.isModified('password')) return next();
   const salt = await bcrypt.genSalt(12);
   this.password = await bcrypt.hash(this.password, salt);
   next();

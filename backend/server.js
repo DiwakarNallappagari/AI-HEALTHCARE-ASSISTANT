@@ -1,6 +1,7 @@
 /**
  * Healthcare Assistant Backend Server
  * Entry point — configures Express, mounts routes, connects DB
+ * Loaded Google Client ID configured
  */
 const express = require('express');
 const cors = require('cors');

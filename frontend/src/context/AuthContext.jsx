@@ -20,6 +20,13 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [loading, setLoading] = useState(true);
 
+  const logout = useCallback(() => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setToken(null);
+    setUser(null);
+  }, []);
+
   // Fetch profile on mount if token exists
   useEffect(() => {
     const initAuth = async () => {
@@ -36,7 +43,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     initAuth();
-  }, []);
+  }, [token, logout]);
 
   const login = useCallback(async (email, password) => {
     const response = await authAPI.login({ email, password });
@@ -64,8 +71,8 @@ export const AuthProvider = ({ children }) => {
     return newUser;
   }, []);
 
-  const googleLogin = useCallback(async (idToken, customData = {}) => {
-    const response = await authAPI.googleLogin(idToken, customData);
+  const googleLogin = useCallback(async (idToken) => {
+    const response = await authAPI.googleLogin(idToken);
     const { user: userData, token: newToken } = response.data.data;
 
     localStorage.setItem('token', newToken);
@@ -75,13 +82,6 @@ export const AuthProvider = ({ children }) => {
     setUser(userData);
 
     return userData;
-  }, []);
-
-  const logout = useCallback(() => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    setToken(null);
-    setUser(null);
   }, []);
 
   const updateProfile = useCallback(async (data) => {
