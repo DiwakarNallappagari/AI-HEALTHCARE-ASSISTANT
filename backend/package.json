@@ -26,7 +26,8 @@
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.7.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "openai": "^7.27.0"
   },
   "devDependencies": {
     "mongodb-memory-server": "^11.2.0",

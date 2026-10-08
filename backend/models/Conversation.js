@@ -1,6 +1,7 @@
 /**
  * Conversation Model
- * Stores chat conversations with AI diagnosis results
+ * Stores LLM-powered chat conversations.
+ * Each conversation belongs to one user and contains ordered messages.
  */
 const mongoose = require('mongoose');
 
@@ -13,6 +14,7 @@ const messageSchema = new mongoose.Schema({
   content: {
     type: String,
     required: true,
+    maxlength: 8000,
   },
   timestamp: {
     type: Date,
@@ -30,34 +32,26 @@ const conversationSchema = new mongoose.Schema({
   title: {
     type: String,
     default: 'New Conversation',
+    maxlength: 120,
   },
   messages: [messageSchema],
-  diagnosis: {
-    conditions: [{
-      name: { type: String },
-      probability: { type: Number, min: 0, max: 100 },
-      description: { type: String },
-    }],
-    riskLevel: {
-      type: String,
-      enum: ['low', 'medium', 'high', 'emergency'],
-    },
-    recommendations: [String],
-    suggestedSpecialist: String,
-  },
 }, {
   timestamps: true,
 });
 
-// Auto-generate title from first user message
+// Auto-generate title from first user message when conversation is new
 conversationSchema.pre('save', function (next) {
   if (this.isNew && this.messages.length > 0) {
-    const firstMessage = this.messages[0].content;
-    this.title = firstMessage.length > 60
-      ? firstMessage.substring(0, 60) + '...'
-      : firstMessage;
+    const firstUserMessage = this.messages.find(m => m.role === 'user');
+    if (firstUserMessage) {
+      const raw = firstUserMessage.content.trim();
+      this.title = raw.length > 80 ? raw.substring(0, 80) + '...' : raw;
+    }
   }
   next();
 });
+
+// Index for efficient per-user conversation queries
+conversationSchema.index({ userId: 1, updatedAt: -1 });
 
 module.exports = mongoose.model('Conversation', conversationSchema);

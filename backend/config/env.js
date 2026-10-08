@@ -12,4 +12,5 @@ module.exports = {
   JWT_EXPIRE: process.env.JWT_EXPIRE || '7d',
   NODE_ENV: process.env.NODE_ENV || 'development',
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID || '',
+  OPENAI_API_KEY: process.env.OPENAI_API_KEY || '',
 };
